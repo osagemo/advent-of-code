@@ -1,6 +1,26 @@
 package utils
 
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
+
+func ConcatDigitsToInt(nums ...int) int {
+	if len(nums) == 0 {
+		panic("no arguments provided")
+	}
+
+	var builder strings.Builder
+	for _, n := range nums {
+		if n < 0 {
+			panic(fmt.Sprintf("negative number not allowed: %d", n))
+		}
+		builder.WriteString(strconv.Itoa(n))
+	}
+
+	return MustParseInt(builder.String())
+}
 
 func MustParseInts(strings []string) []int {
 	ints := []int{}
