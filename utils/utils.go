@@ -6,6 +6,12 @@ import (
 	"strings"
 )
 
+var AllDirections = []Coordinate{
+	{0, 1}, {1, 0}, {1, 1},
+	{0, -1}, {-1, 0}, {-1, -1},
+	{-1, 1}, {1, -1},
+}
+
 func ConcatDigitsToInt(nums ...int) int {
 	if len(nums) == 0 {
 		panic("no arguments provided")
@@ -49,4 +55,17 @@ func Abs(n int) int {
 		return -n
 	}
 	return n
+}
+
+type Coordinate struct {
+	Row, Col int
+}
+
+func (c Coordinate) Add(other Coordinate) Coordinate {
+	return Coordinate{Row: c.Row + other.Row, Col: c.Col + other.Col}
+}
+
+func WithinBounds(matrix [][]rune, coord Coordinate) bool {
+	return coord.Row >= 0 && coord.Row < len(matrix) &&
+		coord.Col >= 0 && coord.Col < len(matrix[0])
 }
